@@ -1,0 +1,43 @@
+<%= flash[:notice] %>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <% array = user.data.split('$') %>
+        <% holder = [] %>
+        <% for i in array %>
+        	<% a = i.split('^') %>
+        	<% holder << [a[0], a[1].to_f] %>
+        <% end %>
+        <!-- holder will now contain an array of points with the format
+        [datetime string, kwh value] -->
+        <td><%= holder[0] %></td>
+
+        	
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div>
+<h3>Import a CSV File</h3>
+  <%= form_tag "/users/import", multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import CSV" %>
+  <% end %>
+</div>
+
+<div id = 'data'></div> 
+
+
+
+<%= javascript_tag 'processData(#{@users.to_json.html_safe});' %>
