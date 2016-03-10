@@ -6,15 +6,13 @@ class User < ActiveRecord::Base
 	# def attributes
 	# 	{'name' => nil, 'data'=> nil}
 	# end
-
-
-
+	require 'csv'
 	def self.import(file)
 		rows = CSV.read(file.path)
 		i = 5
 		data_str = ''
 
-		while i < rows.size do
+		while i < rows.size-600 do
 			t = Time.parse(rows[i][1] + " " + rows[i][2])
 
 			data_str = data_str + t.to_s + '^' + rows[i][4] + '$'

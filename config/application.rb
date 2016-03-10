@@ -4,6 +4,7 @@ require 'rails/all'
 require 'yaml'
 require 'json'
 require 'time'
+require 'csv'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

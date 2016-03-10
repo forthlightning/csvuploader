@@ -7,20 +7,14 @@
       <th>Data</th>
     </tr>
   </thead>
+
+  
   <tbody>
     <% @users.each do |user| %>
       <tr>
         <td><%= user.id %></td>
         <td><%= user.name %></td>
-        <% array = user.data.split('$') %>
-        <% holder = [] %>
-        <% for i in array %>
-        	<% a = i.split('^') %>
-        	<% holder << [a[0], a[1].to_f] %>
-        <% end %>
-        <!-- holder will now contain an array of points with the format
-        [datetime string, kwh value] -->
-        <td><%= holder[0] %></td>
+        <td><%= user.data[0..10] %></td>
 
         	
 
@@ -40,4 +34,7 @@
 
 
 
-<%= javascript_tag 'processData(#{@users.to_json.html_safe});' %>
+<script type='text/javascript'>
+  var array = <%=raw @users.to_json %>
+  processData(array);  
+</script>
